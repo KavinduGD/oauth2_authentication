@@ -1,33 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
+
+import googleButton from './assets/google_signin_buttons/web/1x/btn_google_signin_dark_pressed_web.png'
 import './App.css'
 
+function navigate(url){
+  window.location.href = url;
+}
+
+async function auth(){
+  const response =await fetch('http://127.0.0.1:3000/request',{method:'post'});
+
+  const data = await response.json();
+  console.log(data);
+  if(data.url){
+    navigate(data.url);
+  }
+  else{
+    console.log('error');
+  }
+
+}
+
+
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+<h1>Welcome Kavindu</h1>
+<h3>Google OAuth!</h3>
+
+
+<button className="btn-auth"  type="button" onClick={()=> auth()}>
+            <img className="btn-auth-img" src={googleButton} alt='google sign in'/>
+            </button>
     </>
   )
 }
